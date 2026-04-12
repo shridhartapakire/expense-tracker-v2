@@ -30,3 +30,11 @@ def add_expense(category, amount):
     save_data(df)
 
     return "✅ Expense added successfully"
+
+def view_expenses():
+    df = load_data()
+
+    if df.empty:
+        return "No expenses found"
+
+    return df
