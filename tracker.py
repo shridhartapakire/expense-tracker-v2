@@ -38,3 +38,26 @@ def view_expenses():
         return "No expenses found"
 
     return df
+
+def total_spending():
+    df = load_data()
+
+    if df.empty:
+        return "No expenses found"
+
+    total = df["amount"].sum()
+    return f"💰 Total Spending: ₹{total}"
+
+def category_summary():
+    df = load_data()
+
+    if df.empty:
+        return "No expenses found"
+
+    summary = df.groupby("category")["amount"].sum()
+
+    result = "\n📊 Category-wise Spending:\n"
+    for category, amount in summary.items():
+        result += f"{category}: ₹{amount}\n"
+
+    return result
