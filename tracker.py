@@ -61,3 +61,16 @@ def category_summary():
         result += f"{category}: ₹{amount}\n"
 
     return result
+
+def filter_by_category(category):
+    df = load_data()
+
+    if df.empty:
+        return "No expenses found"
+
+    filtered = df[df["category"].str.lower() == category.lower()]
+
+    if filtered.empty:
+        return f"No expenses found for '{category}'"
+
+    return filtered

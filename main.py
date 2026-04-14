@@ -1,5 +1,4 @@
-from tracker import add_expense, view_expenses, total_spending, category_summary
-
+from tracker import add_expense, view_expenses, total_spending, category_summary, filter_by_category
 
 def menu():
     print("\n===== EXPENSE TRACKER V2 💰 =====")
@@ -7,7 +6,8 @@ def menu():
     print("2. View Expenses")
     print("3. Total Spending")
     print("4. Category Summary")
-    print("5. Exit")
+    print("5. Filter by Category")
+    print("6. Exit")
 
 
 def main():
@@ -32,6 +32,16 @@ def main():
             print(category_summary())
 
         elif choice == "5":
+            category = input("Enter category to filter: ")
+            data = filter_by_category(category)
+
+            if isinstance(data, str):
+                 print(data)
+            else:
+                print(f"\n📂 Expenses for '{category}':\n")
+                print(data.to_string(index=False))
+
+        elif choice == "6":
             print("Exiting...")
             break
 
