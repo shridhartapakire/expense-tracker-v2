@@ -74,3 +74,20 @@ def filter_by_category(category):
         return f"No expenses found for '{category}'"
 
     return filtered
+
+def delete_expense(index):
+    df = load_data()
+
+    if df.empty:
+        return "No expenses to delete"
+
+    if index < 1 or index > len(df):
+        return "Invalid expense number"
+
+    removed = df.iloc[index - 1]
+
+    df = df.drop(index=index - 1).reset_index(drop=True)
+
+    save_data(df)
+
+    return f"🗑️ Deleted: {removed['category']} - ₹{removed['amount']}"

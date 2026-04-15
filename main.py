@@ -1,4 +1,4 @@
-from tracker import add_expense, view_expenses, total_spending, category_summary, filter_by_category
+from tracker import add_expense, view_expenses, total_spending, category_summary, filter_by_category, delete_expense
 
 def menu():
     print("\n===== EXPENSE TRACKER V2 💰 =====")
@@ -7,7 +7,8 @@ def menu():
     print("3. Total Spending")
     print("4. Category Summary")
     print("5. Filter by Category")
-    print("6. Exit")
+    print("6. Delete Expense")
+    print("7. Exit")
 
 
 def main():
@@ -23,7 +24,8 @@ def main():
         elif choice == "2":
             data = view_expenses()
             print("\n📊 All Expenses:\n")
-            print(data.to_string(index=False))
+            for i, row in data.iterrows():
+                print(f"{i+1}. {row['category']} - ₹{row['amount']} ({row['date']})")
 
         elif choice == "3":
             print(total_spending())
@@ -42,11 +44,24 @@ def main():
                 print(data.to_string(index=False))
 
         elif choice == "6":
+            data = view_expenses()
+
+            if isinstance(data, str):
+                print(data)
+            else:
+                print("\n📋 All Expenses:\n")
+
+                for i, row in data.iterrows():
+                    print(f"{i+1}. {row['category']} - ₹{row['amount']} ({row['date']})")
+                try:
+                    index = int(input("Enter expense number to delete: "))
+                    print(delete_expense(index))
+                except ValueError:
+                    print("Invalid input")
+
+        elif choice == "7":
             print("Exiting...")
             break
-
-        else:
-            print("Invalid choice")
 
 if __name__ == "__main__":
     main()
