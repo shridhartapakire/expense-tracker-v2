@@ -46,7 +46,14 @@ def total_spending():
         return "No expenses found"
 
     total = df["amount"].sum()
-    return f"💰 Total Spending: ₹{total}"
+    avg = df["amount"].mean()
+    count = len(df)
+
+    return (
+        f"\n💰 Total Spending: ₹{total}\n"
+        f"📊 Average Expense: ₹{avg:.2f}\n"
+        f"🧾 Total Entries: {count}"
+    )
 
 def category_summary():
     df = load_data()
@@ -54,9 +61,9 @@ def category_summary():
     if df.empty:
         return "No expenses found"
 
-    summary = df.groupby("category")["amount"].sum()
+    summary = df.groupby("category")["amount"].sum().sort_values(ascending=False)
 
-    result = "\n📊 Category-wise Spending:\n"
+    result = "\n📊 Category-wise Spending (High → Low):\n"
     for category, amount in summary.items():
         result += f"{category}: ₹{amount}\n"
 

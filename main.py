@@ -20,18 +20,22 @@ def main():
             category = input("Enter category: ")
             amount = float(input("Enter amount: "))
             print(add_expense(category, amount))
+            print("-" * 40)
 
         elif choice == "2":
             data = view_expenses()
             print("\n📊 All Expenses:\n")
             for i, row in data.iterrows():
                 print(f"{i+1}. {row['category']} - ₹{row['amount']} ({row['date']})")
+            print("-" * 40)
 
         elif choice == "3":
             print(total_spending())
+            print("-" * 40)
 
         elif choice == "4":
             print(category_summary())
+            print("-" * 40)
 
         elif choice == "5":
             category = input("Enter category to filter: ")
@@ -42,6 +46,7 @@ def main():
             else:
                 print(f"\n📂 Expenses for '{category}':\n")
                 print(data.to_string(index=False))
+            print("-" * 40)
 
         elif choice == "6":
             data = view_expenses()
@@ -58,6 +63,7 @@ def main():
                     print(delete_expense(index))
                 except ValueError:
                     print("Invalid input")
+            print("-" * 40)
 
         elif choice == "7":
             print("Exiting...")
